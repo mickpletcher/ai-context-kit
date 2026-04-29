@@ -1,0 +1,25 @@
+name: AI Context Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-ai-context:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Verify AI context files exist
+        run: |
+          test -f ai-entry.md
+          test -f quick-context.md
+          test -f project-analysis.md
+
+      - name: Show context file word counts
+        run: |
+          wc -w ai-entry.md quick-context.md project-analysis.md
